@@ -1,0 +1,17 @@
+{
+  "alert_id": "SEC-ALERT-2026-001",
+  "timestamp": "2026-10-10T07:35:12Z",
+  "host": "vm-windows-target",
+  "user": "azureuser",
+  "event_source": "Microsoft-Windows-Sysmon",
+  "event_id": 13,
+  "description": "Registry value set in autorun key",
+  "details": {
+    "image": "C:\\Windows\\System32\\reg.exe",
+    "target_object": "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Run\\Updater",
+    "details": "C:\\Users\\azureuser\\AppData\\Local\\Temp\\evil_payload.exe",
+    "process_id": 4820,
+    "parent_image": "C:\\Windows\\System32\\cmd.exe",
+    "parent_command_line": "cmd.exe /c reg add HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Run /v Updater /t REG_SZ /d C:\\Users\\azureuser\\AppData\\Local\\Temp\\evil_payload.exe /f"
+  }
+}

